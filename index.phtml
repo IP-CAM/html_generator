@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>Generator HTML</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/highlight.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/bootstrap-select.min.css" rel="stylesheet">
+
+
+    <!-- Custom styles for this template -->
+    <link href="css/jumbotron.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">HTML - генератор</a>
+        </div>
+      </div>
+    </div>
+
+    <?php require_once 'php/get_list_of_products.php'; ?>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron" style="padding-top:30px !important; padding-bottom: 0px;">
+
+      <div class="container">
+       <h3>Тема</h3>
+        <style>
+            
+            @media screen {
+                .form-control{
+                    width:50%;
+                }
+            }
+            @media all and (max-width: 800px){
+                .form-control{
+                    width:100%;
+                }
+            }
+            .btn-group {
+                margin-top: 10px;
+                margin-right: 40px;
+            }
+        </style>
+        
+       <input class="form-control" id="editTextTheme" value="РАСПРОДАЖА ТЕХНИКИ ДЛЯ ДОМА!!!">
+       <h3>Период</h3>
+       <input class="form-control" id="editTextPeriod" value="Акционное предложение с 23 по 29 января">
+
+        </div>
+        <div class="container">
+        <h3>Выберите технику и нажмите "Добавить"</h3>
+        <select id="product_item" class="selectpicker" data-live-search="true">
+          <?php
+          $aProducers = getProducts();
+            if($aProducers == null){
+                print '<option value="' . 1 . '">' . 'index: result is ZERO'  . '</option>';
+            } else{
+                $i=0;
+                while($i<count($aProducers)){
+                    $i++;
+                    $arr=$aProducers[$i];
+                    print '<option value="' . $arr["post_title"] . '">' . $arr["post_title"] . '</option>';
+                }
+            }
+          ?>
+        </select>
+        <a class="btn btn-primary btn-sm" style="margin-right:40px; margin-top:10px" onClick="onAddProduct(); return false;">Добавить &raquo;</a>
+        <a class="btn btn-warning btn-sm" onClick="passArrayToPhp(); return false;" style="margin-top:10px">Экспорт Html</a>
+        <a class="btn btn-success btn-sm" id="btnSuccess" href="http://technika-opt.in.ua/store/promo/offer.html" target="_blank" style="margin-top:10px">Готово &raquo;</a>
+        <br>&nbsp;
+            <p id="label_success" style="color:gray">После добавления всех товаров - нажмите "Экспорт Html"</p>            
+      </div>
+    </div>
+    
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-12">
+        <div id="list">Список пуст...</div>
+        <div><p id="labelExport" style="color:blue; font-weight:700;"></p></div>
+        </div>
+        
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>&copy; Optovik 2017</p>
+      </footer>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/make_list.js?updated=12345678"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+  </body>
+</html>
